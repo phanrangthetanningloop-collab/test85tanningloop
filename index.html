@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>85 Tanning Loop — Where Vietnam is Still Raw</title>
+<meta name="description" content="Explore the Harsh Beauty of Ninh Thuan. Where Wind, Sun & Real Life Collide.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#111110; --nav:#1a1a18; --rust:#C4501E; --rust-lt:#E06535;
+  --sand:#D4A04A; --teal:#2A4A3E; --teal-lt:#3A6A58;
+  --warm-bg:linear-gradient(135deg,#7A4E2A 0%,#C4501E 50%,#7A2810 100%);
+  --white:#F5F2EE; --muted:rgba(245,242,238,.62);
+  --border:rgba(255,255,255,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+button{cursor:pointer;font-family:'Outfit',sans-serif;}
+
+/* ══ NAV ══ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  height:64px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 36px;
+  background:rgba(26,26,24,.96);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer;}
+.logo-badge{
+  width:42px;height:42px;border-radius:50%;
+  background:var(--rust);display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-weight:900;font-size:17px;color:white;
+  transition:transform .2s;
+}
+.logo:hover .logo-badge{transform:rotate(-5deg) scale(1.05);}
+.logo-txt{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;line-height:1.25;color:var(--white);}
+.nav-links{display:flex;align-items:center;gap:4px;}
+
+/* NAV LINK with underline hover */
+.nl{
+  position:relative;
+  padding:9px 15px;border-radius:7px;
+  font-size:14px;font-weight:500;color:rgba(245,242,238,.78);
+  cursor:pointer;transition:color .18s,background .18s;
+  display:flex;align-items:center;gap:5px;
+  border:none;background:none;
+}
+.nl::after{
+  content:'';
+  position:absolute;bottom:5px;left:15px;right:15px;
+  height:2px;background:var(--rust);border-radius:2px;
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .24s cubic-bezier(.4,0,.2,1);
+}
+.nl:hover{color:var(--white);background:rgba(255,255,255,.05);}
+.nl:hover::after,.nl.on::after{transform:scaleX(1);}
+.nl.on{color:var(--white);font-weight:600;}
+
+/* DROPDOWN */
+.dd{position:relative;}
+.dd-menu{
+  position:absolute;top:calc(100% + 6px);left:0;
+  background:#1E1D1B;border:1px solid var(--border);
+  border-radius:10px;overflow:hidden;min-width:210px;padding:5px 0;
+  opacity:0;pointer-events:none;
+  transform:translateY(-6px);
+  transition:opacity .18s,transform .18s;
+  box-shadow:0 12px 40px rgba(0,0,0,.5);
+}
+.dd:hover .dd-menu{opacity:1;pointer-events:all;transform:translateY(0);}
+.dd-item{
+  display:block;padding:11px 18px;font-size:13px;
+  color:var(--muted);transition:color .15s,background .15s;cursor:pointer;
+}
+.dd-item:hover{color:var(--white);background:rgba(255,255,255,.06);}
+
+.nav-icon{
+  padding:8px;border-radius:7px;font-size:18px;cursor:pointer;
+  transition:background .15s;
+}
+.nav-icon:hover{background:rgba(255,255,255,.07);}
+
+/* ══ PAGE SYSTEM ══ */
+.pg{display:none;}
+.pg.on{display:block;}
+
+/* ══ HERO ══ */
+.hero{
+  position:relative;height:100svh;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;padding-top:64px;
+}
+.hero-yt{
+  position:absolute;top:50%;left:50%;
+  width:177.78vh;min-width:100%;
+  height:100vh;min-height:56.25vw;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+  opacity:.58;
+}
+.hero-fallback{
+  position:absolute;inset:0;
+  background:linear-gradient(145deg,#3D1E08 0%,#8B3020 40%,#2A1505 100%);
+}
+.hero-veil{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(17,17,16,.25) 0%,rgba(17,17,16,.65) 100%);
+}
+.hero-body{position:relative;z-index:2;text-align:center;padding:0 24px;}
+.hero-kicker{
+  font-size:11px;font-weight:600;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(245,242,238,.65);
+  margin-bottom:18px;
+}
+.hero-h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(52px,9vw,96px);
+  font-weight:900;line-height:.98;letter-spacing:-.5px;
+  color:white;margin-bottom:32px;
+}
+.hero-h1 em{color:var(--sand);font-style:italic;}
+.btn-book{
+  display:inline-block;
+  background:white;color:var(--black);
+  font-size:12px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;padding:17px 48px;
+  border-radius:4px;border:none;cursor:pointer;
+  transition:background .2s,color .2s,transform .15s,box-shadow .2s;
+}
+.btn-book:hover{
+  background:var(--rust);color:white;
+  transform:translateY(-3px);
+  box-shadow:0 10px 28px rgba(196,80,30,.45);
+}
+.btn-book:active{transform:translateY(0);}
+
+/* ══ TAGLINE SECTION ══ */
+.tag-sec{
+  background:var(--teal);padding:60px 32px;
+  text-align:center;position:relative;overflow:hidden;
+}
+.tag-sec::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.05) 0%,transparent 60%);
+}
+.tag-sec h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(20px,3.5vw,32px);font-weight:700;
+  line-height:1.35;color:white;position:relative;
+}
+
+/* ══ DESTINATIONS ══ */
+.dest-sec{background:var(--teal);padding-bottom:20px;}
+.dest-scroll{
+  display:flex;gap:12px;padding:4px 32px 16px;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+}
+.dest-scroll::-webkit-scrollbar{display:none;}
+.dc{
+  flex:0 0 148px;border-radius:14px;overflow:hidden;
+  position:relative;cursor:pointer;
+  transition:transform .25s,box-shadow .25s;
+}
+.dc:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 14px 36px rgba(0,0,0,.45);}
+.dc-ph{
+  height:188px;
+  background:linear-gradient(145deg,#1F3A2E,#2A5040);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;
+}
+.dc-ph img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+.dc-lbl{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:30px 10px 10px;
+  background:linear-gradient(to top,rgba(0,0,0,.82) 0%,transparent 100%);
+}
+.dc-name{font-size:12px;font-weight:600;color:white;}
+.dc-loc{font-size:10px;color:rgba(255,255,255,.55);margin-top:2px;}
+.dc-more{
+  flex:0 0 108px;height:188px;border-radius:14px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  cursor:pointer;transition:background .2s;
+}
+.dc-more:hover{background:rgba(255,255,255,.13);}
+.dc-more-n{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--sand);}
+.dc-more-t{font-size:11px;color:var(--muted);text-align:center;}
+
+/* ══ TOURS SECTION ══ */
+.tours-sec{background:var(--warm-bg);padding:64px 32px;}
+.tours-hd{margin-bottom:36px;}
+.tours-hd h2{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,44px);font-weight:900;color:white;margin-bottom:6px;}
+.tours-hd p{font-size:14px;color:rgba(255,255,255,.68);}
+.tours-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
+
+/* Tour card */
+.tc{
+  background:white;border-radius:16px;overflow:hidden;cursor:pointer;
+  transition:transform .28s,box-shadow .28s;
+}
+.tc:hover{transform:translateY(-7px);box-shadow:0 22px 52px rgba(0,0,0,.35);}
+.tc-img{height:200px;overflow:hidden;position:relative;}
+.tc-img-ph{
+  width:100%;height:100%;
+  display:flex;align-items:flex-end;padding:16px;
+}
+.tc-img-label{
+  font-family:'Playfair Display',serif;
+  font-size:19px;font-weight:700;color:white;line-height:1.2;
+  text-shadow:0 2px 10px rgba(0,0,0,.6);
+}
+.tc img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+.tc:hover .tc-img img{transform:scale(1.07);}
+.tc-body{padding:18px 20px 20px;}
+.tc-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:#1a1a18;margin-bottom:8px;line-height:1.3;}
+.tc-desc{font-size:12px;color:#666;line-height:1.65;margin-bottom:16px;}
+.tc-btn{
+  display:block;width:100%;
+  background:#1a1a18;color:white;
+  text-align:center;padding:12px;
+  border-radius:9px;font-size:13px;font-weight:600;
+  border:none;cursor:pointer;transition:background .18s,transform .12s;
+}
+.tc:hover .tc-btn{background:var(--rust);}
+.tc-btn:active{transform:scale(.97);}
+
+/* ══ FOOTER ══ */
+footer{background:#0C0B09;padding:52px 32px 28px;border-top:1px solid rgba(255,255,255,.05);}
+.ft-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-bottom:36px;}
+.ft-col h4{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sand);margin-bottom:14px;}
+.ft-col p,.ft-col a{font-size:13px;color:var(--muted);line-height:1.85;display:block;transition:color .14s;}
+.ft-col a:hover{color:var(--white);}
+.socials{display:flex;gap:10px;margin-top:4px;}
+.soc{
+  width:38px;height:38px;border-radius:50%;
+  background:rgba(255,255,255,.07);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;cursor:pointer;text-decoration:none;
+  transition:background .2s,transform .2s,border-color .2s;
+}
+.soc:hover{background:var(--rust);border-color:var(--rust);transform:translateY(-3px);}
+.ft-bottom{border-top:1px solid rgba(255,255,255,.05);padding-top:20px;text-align:center;font-size:12px;color:rgba(245,242,238,.25);}
+
+/* WhatsApp FAB */
+.wa-fab{
+  position:fixed;bottom:24px;right:24px;z-index:400;
+  width:54px;height:54px;border-radius:50%;
+  background:#25D366;color:white;
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;text-decoration:none;
+  box-shadow:0 4px 18px rgba(37,211,102,.4);
+  transition:transform .2s,box-shadow .2s;
+}
+.wa-fab:hover{transform:scale(1.12);box-shadow:0 8px 28px rgba(37,211,102,.55);}
+
+/* ══ TOUR DETAIL ══ */
+.td-hero{position:relative;height:300px;overflow:hidden;margin-top:64px;}
+.td-hero-bg{width:100%;height:100%;object-fit:cover;}
+.td-hero-bg-ph{width:100%;height:100%;}
+.td-hero-veil{position:absolute;inset:0;background:linear-gradient(to top,rgba(17,17,16,.88) 0%,rgba(17,17,16,.15) 65%,transparent 100%);}
+.td-hero-txt{position:absolute;bottom:0;left:0;right:0;padding:28px 32px;}
+.td-hero-txt h1{font-family:'Playfair Display',serif;font-size:clamp(26px,5vw,42px);font-weight:900;color:white;}
+.price-bar{
+  position:sticky;top:64px;z-index:100;
+  background:rgba(26,26,24,.97);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:14px 32px;display:flex;align-items:center;justify-content:space-between;
+}
+.pb-price{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--sand);}
+.pb-note{font-size:11px;color:var(--muted);margin-top:2px;}
+.pb-btn{
+  background:var(--rust);color:white;
+  font-size:13px;font-weight:600;padding:12px 26px;
+  border-radius:9px;border:none;cursor:pointer;
+  transition:background .15s,transform .12s;
+}
+.pb-btn:hover{background:var(--rust-lt);transform:translateY(-1px);}
+.td-body{max-width:720px;margin:0 auto;padding:28px 24px 48px;}
+
+/* Section accordion */
+.sa{border:1px solid rgba(255,255,255,.09);border-radius:12px;overflow:hidden;margin-bottom:12px;}
+.sa-hd{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:17px 20px;cursor:pointer;
+  background:rgba(255,255,255,.03);transition:background .15s;
+}
+.sa-hd:hover{background:rgba(255,255,255,.07);}
+.sa-hd h3{font-size:15px;font-weight:600;color:var(--white);}
+.sa-ico{
+  width:26px;height:26px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.18);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;color:var(--sand);flex-shrink:0;
+  transition:transform .22s,background .2s,border-color .2s;
+}
+.sa.open .sa-ico{transform:rotate(180deg);background:var(--rust);border-color:var(--rust);color:white;}
+.sa-body{display:none;padding:4px 20px 20px;}
+.sa.open .sa-body{display:block;}
+
+/* Day accordion */
+.da{margin-bottom:8px;}
+.da-hd{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:13px 16px;border-radius:9px;cursor:pointer;
+  background:rgba(255,255,255,.04);transition:background .15s;
+}
+.da-hd:hover{background:rgba(255,255,255,.08);}
+.da.open .da-hd{background:rgba(196,80,30,.13);}
+.da-title{font-size:14px;font-weight:600;color:var(--white);}
+.da.open .da-title{color:var(--sand);}
+.da-arr{font-size:11px;color:var(--muted);transition:transform .2s;}
+.da.open .da-arr{transform:rotate(180deg);color:var(--sand);}
+.da-body{display:none;padding:14px 16px 6px;}
+.da.open .da-body{display:block;}
+.day-desc{font-size:13px;color:var(--muted);line-height:1.78;margin-bottom:12px;}
+.note-box{background:rgba(212,160,74,.1);border-left:2px solid var(--sand);padding:9px 12px;border-radius:0 7px 7px 0;margin-bottom:12px;font-size:12px;color:#D4A04A;line-height:1.6;}
+.rl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sand);margin-bottom:7px;}
+.route{font-size:13px;color:var(--white);line-height:1.65;font-weight:500;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.chip{font-size:11px;font-weight:500;padding:4px 10px;border-radius:5px;border:1px solid;}
+.ch-sea{background:rgba(42,90,165,.14);color:#7BB5E8;border-color:rgba(119,181,232,.18);}
+.ch-nat{background:rgba(42,107,82,.14);color:#5DCAA5;border-color:rgba(93,202,165,.18);}
+.ch-cul{background:rgba(196,160,42,.12);color:#D4A840;border-color:rgba(212,168,64,.18);}
+.ch-food{background:rgba(196,80,30,.12);color:#E8947A;border-color:rgba(232,148,122,.18);}
+.ch-wild{background:rgba(127,119,221,.12);color:#C5C2F0;border-color:rgba(197,194,240,.18);}
+
+/* Details table */
+.dt-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px;}
+.dt-cell{background:rgba(255,255,255,.04);border-radius:8px;padding:12px 14px;}
+.dt-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.dt-val{font-size:13px;color:var(--white);}
+
+/* Inc/Exc */
+.ie-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.ie-box{background:rgba(255,255,255,.04);border-radius:10px;padding:14px 16px;}
+.ie-ttl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+.ie-ttl.g{color:#5DCAA5;} .ie-ttl.r{color:#E8947A;}
+.ie-row{display:flex;gap:8px;font-size:12px;color:var(--muted);margin-bottom:7px;line-height:1.4;}
+.ie-row:last-child{margin-bottom:0;}
+
+/* FAQ */
+.faq-item{border-bottom:1px solid rgba(255,255,255,.07);}
+.faq-q{
+  width:100%;text-align:left;padding:15px 0;
+  font-size:14px;font-weight:500;color:var(--white);
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  cursor:pointer;background:none;border:none;
+  font-family:'Outfit',sans-serif;line-height:1.4;
+}
+.faq-ic{font-size:20px;color:var(--sand);flex-shrink:0;transition:transform .2s;}
+.faq-item.open .faq-ic{transform:rotate(45deg);}
+.faq-a{display:none;font-size:13px;color:var(--muted);line-height:1.78;padding-bottom:14px;}
+.faq-item.open .faq-a{display:block;}
+
+/* Book strip */
+.book-strip{
+  margin-top:20px;
+  background:rgba(196,80,30,.1);border:1px solid rgba(196,80,30,.22);
+  border-radius:12px;padding:22px 20px;
+}
+.book-strip h3{font-family:'Playfair Display',serif;font-size:20px;margin-bottom:7px;}
+.book-strip p{font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6;}
+.btn-full{display:block;width:100%;background:var(--rust);color:white;text-align:center;padding:14px;border-radius:9px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:background .15s,transform .12s;}
+.btn-full:hover{background:var(--rust-lt);transform:translateY(-1px);}
+
+/* ══ BLOG PAGE ══ */
+.blog-pg{margin-top:64px;padding:52px 32px;min-height:100vh;}
+.blog-pg h1{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;margin-bottom:8px;}
+.blog-pg .sub{font-size:14px;color:var(--muted);margin-bottom:32px;}
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
+.bc{
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;overflow:hidden;cursor:pointer;
+  transition:transform .25s,box-shadow .25s,border-color .2s;
+}
+.bc:hover{transform:translateY(-5px);box-shadow:0 14px 36px rgba(0,0,0,.35);border-color:rgba(255,255,255,.14);}
+.bc-img{height:175px;background:linear-gradient(145deg,#2A4A3E,#1A3028);overflow:hidden;position:relative;}
+.bc-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
+.bc:hover .bc-img img{transform:scale(1.06);}
+.bc-body{padding:18px;}
+.bc-cat{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sand);margin-bottom:7px;}
+.bc-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;line-height:1.25;margin-bottom:8px;}
+.bc-exc{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:10px;}
+.bc-meta{font-size:11px;color:rgba(245,242,238,.3);}
+.bc-read{font-size:12px;font-weight:600;color:var(--sand);margin-top:10px;display:inline-flex;align-items:center;gap:4px;}
+
+/* Blog post view */
+.post-view{display:none;}
+.post-view.on{display:block;}
+.post-back{display:flex;align-items:center;gap:6px;padding:16px 20px;font-size:13px;color:var(--muted);cursor:pointer;border-bottom:1px solid var(--border);transition:color .15s;}
+.post-back:hover{color:var(--white);}
+.post-img{height:240px;overflow:hidden;}
+.post-img img{width:100%;height:100%;object-fit:cover;}
+.post-img-ph{width:100%;height:100%;background:linear-gradient(145deg,#2A4A3E,#1A3028);}
+.post-content{max-width:720px;margin:0 auto;padding:28px 24px 48px;}
+.post-meta{font-size:11px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+.post-body{font-size:15px;line-height:1.82;color:rgba(245,242,238,.82);}
+.post-body p{margin-bottom:14px;}
+.post-body h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin:28px 0 12px;color:var(--white);}
+
+/* ══ ABOUT PAGE ══ */
+.about-pg{margin-top:64px;}
+.ab-hero{height:300px;position:relative;overflow:hidden;}
+.ab-hero-ph{width:100%;height:100%;background:linear-gradient(145deg,#1A3028,#2A4A3E,#3D1E08);}
+.ab-hero img{width:100%;height:100%;object-fit:cover;}
+.ab-veil{position:absolute;inset:0;background:linear-gradient(to top,rgba(17,17,16,.85) 0%,rgba(17,17,16,.15) 65%,transparent);}
+.ab-txt{position:absolute;bottom:0;left:0;right:0;padding:28px 32px;}
+.ab-txt h1{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:white;}
+.ab-txt p{font-size:14px;color:rgba(255,255,255,.62);margin-top:6px;}
+.ab-content{max-width:720px;margin:0 auto;padding:48px 24px;}
+.ab-sec{margin-bottom:48px;}
+.ab-sec .lbl{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--sand);margin-bottom:12px;}
+.ab-sec h2{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;margin-bottom:16px;}
+.ab-sec p{font-size:14px;color:var(--muted);line-height:1.82;margin-bottom:14px;}
+.ab-sep{height:1px;background:rgba(255,255,255,.07);margin:0 0 48px;}
+.val-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;}
+.val-c{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px;transition:border-color .2s;}
+.val-c:hover{border-color:rgba(196,80,30,.28);}
+.val-c .ico{font-size:22px;margin-bottom:8px;}
+.val-c h4{font-size:14px;font-weight:600;margin-bottom:6px;}
+.val-c p{font-size:12px;color:var(--muted);line-height:1.6;margin:0;}
+.ppl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;}
+.ppl-c{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px;text-align:center;}
+.ppl-c .ico{font-size:28px;margin-bottom:8px;}
+.ppl-c h4{font-size:13px;font-weight:600;margin-bottom:4px;}
+.ppl-c p{font-size:11px;color:var(--muted);line-height:1.5;}
+
+/* ══ BOOKING PAGE ══ */
+.book-pg{margin-top:64px;min-height:100vh;}
+.bk-hero{background:linear-gradient(135deg,var(--teal) 0%,#1A3028 100%);padding:48px 32px;}
+.bk-hero h1{font-family:'Playfair Display',serif;font-size:34px;font-weight:900;color:white;margin-bottom:8px;}
+.bk-hero p{font-size:14px;color:rgba(255,255,255,.62);margin-bottom:24px;}
+.flow{display:flex;flex-direction:column;gap:12px;}
+.fl{display:flex;gap:12px;align-items:flex-start;}
+.fl-n{flex:0 0 26px;height:26px;border-radius:50%;background:var(--sand);color:var(--black);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.fl-t{font-size:13px;color:rgba(255,255,255,.7);padding-top:3px;line-height:1.55;}
+.fl-t strong{color:white;}
+.bk-form-wrap{padding:32px;max-width:680px;margin:0 auto;}
+.fcard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px;}
+.fcard h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:4px;}
+.fcard .sub{font-size:12px;color:var(--muted);margin-bottom:22px;}
+.frow{margin-bottom:14px;}
+.frow label{display:block;font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.frow input,.frow select,.frow textarea{
+  width:100%;padding:12px 14px;
+  border:1.5px solid rgba(255,255,255,.1);border-radius:8px;
+  font-size:14px;font-family:'Outfit',sans-serif;
+  color:var(--white);background:rgba(255,255,255,.05);
+  outline:none;-webkit-appearance:none;appearance:none;
+  transition:border-color .15s,background .15s;
+}
+.frow input:focus,.frow select:focus,.frow textarea:focus{border-color:var(--sand);background:rgba(255,255,255,.08);}
+.frow textarea{min-height:90px;resize:vertical;}
+.frow select option{background:#1a1a18;}
+.frow-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.fsub{width:100%;background:var(--rust);color:white;padding:15px;border-radius:10px;font-size:15px;font-weight:600;border:none;cursor:pointer;font-family:'Outfit',sans-serif;margin-top:6px;letter-spacing:.02em;transition:background .15s,transform .12s;}
+.fsub:hover{background:var(--rust-lt);transform:translateY(-1px);}
+.fnote{font-size:11px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.6;}
+.fok{display:none;text-align:center;background:rgba(93,202,165,.08);border:1px solid rgba(93,202,165,.2);border-radius:14px;padding:32px;}
+.fok .ico{font-size:44px;margin-bottom:12px;}
+.fok h3{font-family:'Playfair Display',serif;font-size:22px;color:#5DCAA5;margin-bottom:8px;}
+.fok p{font-size:13px;color:var(--muted);line-height:1.72;}
+
+/* ══ LEGAL PAGES ══ */
+.legal-pg{margin-top:64px;max-width:720px;margin-left:auto;margin-right:auto;padding:48px 24px;}
+.legal-pg h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;margin-bottom:32px;}
+.legal-pg h2{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin:28px 0 10px;color:var(--white);}
+.legal-pg p,.legal-pg li{font-size:14px;color:var(--muted);line-height:1.82;margin-bottom:10px;}
+.legal-pg ul{padding-left:20px;}
+
+/* ══ UTILS ══ */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .45s ease,transform .45s ease;}
+.reveal.vis{opacity:1;transform:translateY(0);}
+.sep{height:1px;background:rgba(255,255,255,.07);}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:640px){
+  nav{padding:0 14px;}
+  .nl{padding:7px 10px;font-size:13px;}
+  .hero-h1{font-size:44px;}
+  .tours-sec,.tag-sec,.dest-sec{padding-left:16px;padding-right:16px;}
+  .dest-scroll{padding:4px 16px 16px;}
+  .tours-grid{grid-template-columns:1fr;}
+  .ft-grid{grid-template-columns:1fr;gap:22px;}
+  footer{padding:36px 16px 24px;}
+  .td-body,.post-content,.ab-content,.bk-form-wrap,.legal-pg{padding-left:16px;padding-right:16px;}
+  .ie-grid,.dt-grid,.val-grid,.ppl-grid{grid-template-columns:1fr;}
+  .frow-2{grid-template-columns:1fr;}
+  .price-bar{padding:12px 16px;}
+  .blog-pg{padding:36px 16px;}
+  .ab-content{padding-top:36px;}
+  .bk-hero,.bk-form-wrap{padding:36px 16px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="logo" onclick="goPage('home')">
+    <div class="logo-badge">85</div>
+    <div class="logo-txt">Tanning<br>Loop</div>
+  </div>
+  <div class="nav-links">
+    <button class="nl on" id="nl-home" onclick="goPage('home')">Home</button>
+    <div class="dd">
+      <button class="nl" id="nl-tours" onclick="goPage('tours')">Tour list ▽</button>
+      <div class="dd-menu">
+        <span class="dd-item" onclick="goTour('2n1d')">2N1Đ — Coast & Farm</span>
+        <span class="dd-item" onclick="goTour('3n2d')">3N2Đ — Loop + Jungle</span>
+        <span class="dd-item" onclick="goTour('4n3d')">4N3Đ — Phuoc Binh Wild</span>
+      </div>
+    </div>
+    <button class="nl" id="nl-blog" onclick="goPage('blog')">Blog</button>
+    <button class="nl" id="nl-about" onclick="goPage('about')"><strong>About us</strong></button>
+    <span class="nav-icon" onclick="goPage('book')" title="Book">📅</span>
+  </div>
+</nav>
+
+<!-- ══════════ HOME ══════════ -->
+<div class="pg on" id="pg-home">
+  <div class="hero">
+    <div class="hero-fallback"></div>
+    <iframe id="ytPlayer" class="hero-yt"
+      src="https://www.youtube.com/embed/6XDq-7igkH0?autoplay=1&mute=1&loop=1&playlist=6XDq-7igkH0&controls=0&showinfo=0&modestbranding=1&rel=0&disablekb=1&iv_load_policy=3&start=0&enablejsapi=1"
+      allow="autoplay;encrypted-media" allowfullscreen frameborder="0">
+    </iframe>
+    <div class="hero-veil"></div>
+    <div class="hero-body">
+      <div class="hero-kicker">85 Tanning Loop · Ninh Thuan · Vietnam</div>
+      <h1 class="hero-h1">Where Vietnam<br>is Still <em>Raw</em></h1>
+      <button class="btn-book" onclick="goPage('book')">BOOK NOW</button>
+    </div>
+  </div>
+
+  <div class="tag-sec">
+    <h2>Explore the Harsh Beauty of Ninh Thuan.<br>Where Wind, Sun & Real Life Collide.</h2>
+  </div>
+
+  <div class="dest-sec">
+    <div class="dest-scroll">
+      <div class="dc reveal"><div class="dc-ph" style="background:linear-gradient(145deg,#3D2A18,#6B4828);"></div><div class="dc-lbl"><div class="dc-name">Stone Park</div><div class="dc-loc">Ninh Thuan</div></div></div>
+      <div class="dc reveal"><div class="dc-ph" style="background:linear-gradient(145deg,#2A3D18,#4A6828);"></div><div class="dc-lbl"><div class="dc-name">Sheep Farm</div><div class="dc-loc">Ninh Thuan</div></div></div>
+      <div class="dc reveal"><div class="dc-ph" style="background:linear-gradient(145deg,#1A3D28,#2A5040);"></div><div class="dc-lbl"><div class="dc-name">Phuoc Binh NP</div><div class="dc-loc">Ninh Thuan</div></div></div>
+      <div class="dc reveal"><div class="dc-ph" style="background:linear-gradient(145deg,#1A2A4A,#2A4060);"></div><div class="dc-lbl"><div class="dc-name">Bai Thung Beach</div><div class="dc-loc">Ninh Thuan</div></div></div>
+      <div class="dc reveal"><div class="dc-ph" style="background:linear-gradient(145deg,#3D3018,#6B5428);"></div><div class="dc-lbl"><div class="dc-name">Mui Dinh Lighthouse</div><div class="dc-loc">Ninh Thuan</div></div></div>
+      <div class="dc reveal"><div class="dc-ph" style="background:linear-gradient(145deg,#2A1A3D,#40285A);"></div><div class="dc-lbl"><div class="dc-name">Dam Vua Salt Fields</div><div class="dc-loc">Ninh Thuan</div></div></div>
+      <div class="dc reveal"><div class="dc-ph" style="background:linear-gradient(145deg,#1A3D3D,#285A5A);"></div><div class="dc-lbl"><div class="dc-name">Chapor Waterfall</div><div class="dc-loc">Ninh Thuan</div></div></div>
+      <div class="dc reveal"><div class="dc-ph" style="background:linear-gradient(145deg,#3A2A18,#5A4028);"></div><div class="dc-lbl"><div class="dc-name">Raglai Village</div><div class="dc-loc">Ninh Thuan</div></div></div>
+      <div class="dc-more reveal" onclick="goPage('tours')"><div class="dc-more-n">+20</div><div class="dc-more-t">local<br>destinations</div></div>
+    </div>
+  </div>
+
+  <div class="tours-sec">
+    <div class="tours-hd reveal">
+      <h2>Popular tours</h2>
+      <p>From a weekend escape to a full wild loop.</p>
+    </div>
+    <div class="tours-grid">
+      <div class="tc reveal" onclick="goTour('2n1d')">
+        <div class="tc-img"><div class="tc-img-ph" style="background:linear-gradient(145deg,#2A4A3E,#8B5E3C);"><div class="tc-img-label">Ninh Thuan Motorbike Loop<br>2 Days 1 Night</div></div></div>
+        <div class="tc-body">
+          <div class="tc-name">Ninh Thuan Motorbike Loop 2 Days 1 Night</div>
+          <div class="tc-desc">2 days along Ninh Thuan's wildest coast — ancient coral, a 100-year lighthouse, and the goat farm behind Vietnam's most authentic hotpot.</div>
+          <button class="tc-btn">Tour's detail</button>
+        </div>
+      </div>
+      <div class="tc reveal" onclick="goTour('3n2d')">
+        <div class="tc-img"><div class="tc-img-ph" style="background:linear-gradient(145deg,#3A6A58,#C4501E);"><div class="tc-img-label">Ninh Thuan Motorbike Loop<br>3 Days 2 Nights</div></div></div>
+        <div class="tc-body">
+          <div class="tc-name">Ninh Thuan Motorbike Loop 3 Days 2 Nights</div>
+          <div class="tc-desc">Everything in 2N1Đ, plus a full day deep in Phuoc Binh National Park — waterfalls, a Raglai village, and cơm lam cooked over fire. Back by 2:30pm.</div>
+          <button class="tc-btn">Tour's detail</button>
+        </div>
+      </div>
+      <div class="tc reveal" onclick="goTour('4n3d')">
+        <div class="tc-img"><div class="tc-img-ph" style="background:linear-gradient(145deg,#1A3028,#8B3020);"><div class="tc-img-label">Ninh Thuan Motorbike Loop<br>4 Days 3 Nights</div></div></div>
+        <div class="tc-body">
+          <div class="tc-name">Ninh Thuan Motorbike Loop 4 Days 3 Nights</div>
+          <div class="tc-desc">The full loop — coast, farm, and two nights in the jungle. Sleep in a Raglai stilt house. Wake at 5:30am to Vietnam's largest wild gaur herd. No signal. No crowds.</div>
+          <button class="tc-btn">Tour's detail</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="ft-grid">
+      <div class="ft-col">
+        <h4>Social media</h4>
+        <div class="socials">
+          <a href="https://tiktok.com/@85tanningloop" target="_blank" class="soc">🎵</a>
+          <a href="https://instagram.com/85tanningloop" target="_blank" class="soc">📷</a>
+          <a href="https://wa.me/84813174374" target="_blank" class="soc">💬</a>
+        </div>
+      </div>
+      <div class="ft-col">
+        <h4>Contact</h4>
+        <p>Address: Tan An, Ninh Hai, Ninh Thuan</p>
+        <p>phanrangthetanningloop@gmail.com</p>
+        <p>Whatsapp/Zalo: +84 813 174 374</p>
+      </div>
+      <div class="ft-col">
+        <h4>Rules & Legal</h4>
+        <a onclick="goPage('refund')">Refund Policy</a>
+        <a onclick="goPage('privacy')">Privacy</a>
+        <a onclick="goPage('terms')">Terms & Conditions</a>
+      </div>
+    </div>
+    <div class="ft-bottom">© 2026 85 Tanning Loop · Tan An, Ninh Hai, Ninh Thuan, Vietnam</div>
+  </footer>
+</div>
+
+<!-- ══════════ TOURS LIST ══════════ -->
+<div class="pg" id="pg-tours">
+  <div style="margin-top:64px;padding:48px 32px;max-width:900px;margin-left:auto;margin-right:auto;">
+    <div class="lbl" style="font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--sand);margin-bottom:12px;">All Tours</div>
+    <h1 style="font-family:'Playfair Display',serif;font-size:36px;font-weight:900;margin-bottom:8px;">3 ways to ride Ninh Thuan.</h1>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:36px;">Same Day 1 & 2 across all packages — upgrade to go deeper, not to start over.</p>
+    <div class="tours-grid" style="max-width:none;">
+      <div class="tc reveal" onclick="goTour('2n1d')">
+        <div class="tc-img"><div class="tc-img-ph" style="background:linear-gradient(145deg,#2A4A3E,#8B5E3C);"><div class="tc-img-label">2N1Đ<br>Coast & Farm</div></div></div>
+        <div class="tc-body"><div class="tc-name">2N1Đ — Ninh Thuan Motorbike Loop<br>2 Days 1 Night</div><div style="font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--rust);margin-bottom:8px;">$65+</div><div class="tc-desc">2 days along Ninh Thuan's wildest coast — ancient coral, a 100-year lighthouse, and the goat farm behind Vietnam's most authentic hotpot.</div><button class="tc-btn">Tour's detail</button></div>
+      </div>
+      <div class="tc reveal" onclick="goTour('3n2d')" style="border:2px solid rgba(212,160,74,.3);">
+        <div class="tc-img"><div class="tc-img-ph" style="background:linear-gradient(145deg,#3A6A58,#C4501E);"><div class="tc-img-label">3N2Đ ⭐<br>Loop + Jungle</div></div></div>
+        <div class="tc-body"><div class="tc-name">3N2Đ — Ninh Thuan Motorbike Loop<br>3 Days 2 Nights</div><div style="font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--rust);margin-bottom:8px;">$95+</div><div class="tc-desc">Everything in 2N1Đ, plus a full day deep in Phuoc Binh National Park — waterfalls, a Raglai village, and cơm lam cooked over fire.</div><button class="tc-btn" style="background:var(--rust);">Tour's detail</button></div>
+      </div>
+      <div class="tc reveal" onclick="goTour('4n3d')">
+        <div class="tc-img"><div class="tc-img-ph" style="background:linear-gradient(145deg,#1A3028,#8B3020);"><div class="tc-img-label">4N3Đ<br>Phuoc Binh Wild</div></div></div>
+        <div class="tc-body"><div class="tc-name">4N3Đ — Ninh Thuan Motorbike Loop<br>4 Days 3 Nights</div><div style="font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--rust);margin-bottom:8px;">$120+</div><div class="tc-desc">The full loop — coast, farm, and two nights in the jungle. Sleep in a Raglai stilt house. Wake at 5:30am to Vietnam's largest wild gaur herd.</div><button class="tc-btn">Tour's detail</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ TOUR DETAIL PAGES ══════════ -->
+<div class="pg" id="pg-tour-2n1d">
+  <div class="td-hero"><div class="td-hero-bg-ph" style="background:linear-gradient(145deg,#2A4A3E,#8B5E3C,#C4501E);"></div><div class="td-hero-veil"></div><div class="td-hero-txt"><h1>2N1Đ — Coast & Farm</h1></div></div>
+  <div class="price-bar"><div><div class="pb-price">$65 <span style="font-size:14px;font-weight:400;color:var(--muted);">/person</span></div><div class="pb-note">Self riding · ~160km · Max 6</div></div><button class="pb-btn" onclick="goPage('book')">Book Now</button></div>
+  <div class="td-body">
+    <div class="sa open" id="sa-2-land"><div class="sa-hd" onclick="toggleSa('sa-2-land')"><h3>Landscape</h3><span class="sa-ico">▾</span></div>
+      <div class="sa-body">
+        <div class="da open"><div class="da-hd" onclick="toggleDa(this)"><span class="da-title">Day 1: Coastal North + Mui Dinh (~80km)</span><span class="da-arr">▾</span></div>
+          <div class="da-body"><p class="day-desc">Be ready at 8:00 AM at lodge Tan An. Breakfast before departure. Set off at 9:00 AM heading north — Vietnam's driest, most unspoiled coastline.</p><div class="rl">Route</div><div class="route">Lodge Tan An → Dong Hai seafood market → Bai Thung ancient coral beach → Mui Dinh Lighthouse (1905) → Son Hai wild beach → Đam Vua salt fields (golden hour) → Lodge</div><div class="chips"><span class="chip ch-food">🐟 Dong Hai Market</span><span class="chip ch-sea">🏖 Bai Thung Beach</span><span class="chip ch-cul">🗼 Mui Dinh 1905</span><span class="chip ch-sea">🌊 Son Hai Beach</span><span class="chip ch-cul">🧂 Salt Fields</span></div></div>
+        </div>
+        <div class="da" style="margin-top:8px;"><div class="da-hd" onclick="toggleDa(this)"><span class="da-title">Day 2: Farm + Inland (~80km)</span><span class="da-arr">▾</span></div>
+          <div class="da-body"><p class="day-desc">Breakfast at 8:00 AM. Morning at the goat farm — same farm supplying Huynh De hotpot in HCMC. Then inland through canyons and wind farms. Return ~4pm.</p><div class="rl">Route</div><div class="route">Lodge → Huynh De Goat Farm → Bimong Po Rome Cham Tower → Phuoc Khang spring → Stone Park → Đam Nai lagoon kayak → Return ~4:00 PM</div><div class="chips"><span class="chip ch-wild">🐐 Goat Farm</span><span class="chip ch-cul">🏛 Bimong Po Rome</span><span class="chip ch-nat">💧 Phuoc Khang</span><span class="chip ch-nat">🪨 Stone Park</span><span class="chip ch-sea">🛶 Kayak</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="sa" id="sa-2-det"><div class="sa-hd" onclick="toggleSa('sa-2-det')"><h3>Details of 2N1Đ</h3><span class="sa-ico">▾</span></div>
+      <div class="sa-body"><div class="dt-grid"><div class="dt-cell"><div class="dt-label">Duration</div><div class="dt-val">2 nights / 2 days</div></div><div class="dt-cell"><div class="dt-label">Distance</div><div class="dt-val">~160km total</div></div><div class="dt-cell"><div class="dt-label">Difficulty</div><div class="dt-val">1/5 — beginner</div></div><div class="dt-cell"><div class="dt-label">Group</div><div class="dt-val">Max 6 people</div></div></div>
+      <div class="ie-grid"><div class="ie-box"><div class="ie-ttl g">✓ Included</div><div class="ie-row"><span>🏍</span><span>Local guide</span></div><div class="ie-row"><span>🏠</span><span>1 night lodge (shared)</span></div><div class="ie-row"><span>🍽</span><span>All meals</span></div><div class="ie-row"><span>🎟</span><span>All tickets</span></div><div class="ie-row"><span>💧</span><span>Water daily</span></div></div><div class="ie-box"><div class="ie-ttl r">✗ Not included</div><div class="ie-row"><span>🚌</span><span>Transport HCMC ↔ Phan Rang</span></div><div class="ie-row"><span>🍺</span><span>Alcoholic drinks</span></div><div class="ie-row"><span>🛡</span><span>Travel insurance</span></div></div></div></div>
+    </div>
+    <div class="sa" id="sa-2-faq"><div class="sa-hd" onclick="toggleSa('sa-2-faq')"><h3>FAQ</h3><span class="sa-ico">▾</span></div><div class="sa-body"><div id="faq-2n1d"></div></div></div>
+    <div class="book-strip"><h3>Reserve — Free, no deposit</h3><p>Pay cash on Day 1. We confirm within 24h via WhatsApp / Zalo.</p><button class="btn-full" onclick="goPage('book')">Book This Tour →</button></div>
+  </div>
+</div>
+
+<div class="pg" id="pg-tour-3n2d">
+  <div class="td-hero"><div class="td-hero-bg-ph" style="background:linear-gradient(145deg,#3A6A58,#2A4A3E,#C4501E);"></div><div class="td-hero-veil"></div><div class="td-hero-txt"><h1>3N2Đ — Loop + Jungle Day ⭐</h1></div></div>
+  <div class="price-bar"><div><div class="pb-price">$95 <span style="font-size:14px;font-weight:400;color:var(--muted);">/person</span></div><div class="pb-note">Self riding · ~230km · Max 6</div></div><button class="pb-btn" onclick="goPage('book')">Book Now</button></div>
+  <div class="td-body">
+    <div class="sa open" id="sa-3-land"><div class="sa-hd" onclick="toggleSa('sa-3-land')"><h3>Landscape</h3><span class="sa-ico">▾</span></div>
+      <div class="sa-body">
+        <div class="da open"><div class="da-hd" onclick="toggleDa(this)"><span class="da-title">Day 1: Coastal North + Mui Dinh (~80km)</span><span class="da-arr">▾</span></div><div class="da-body"><p class="day-desc">Same as 2N1Đ Day 1. Coast north — Dong Hai, Bai Thung, Mui Dinh lighthouse, Son Hai, salt fields at golden hour.</p><div class="rl">Route</div><div class="route">Lodge → Dong Hai → Bai Thung → Mui Dinh → Son Hai → Salt Fields → Lodge</div></div></div>
+        <div class="da" style="margin-top:8px;"><div class="da-hd" onclick="toggleDa(this)"><span class="da-title">Day 2: Farm + Inland (~80km)</span><span class="da-arr">▾</span></div><div class="da-body"><p class="day-desc">Same as 2N1Đ Day 2. Goat farm, Cham tower, spring, Stone Park, lagoon kayak.</p><div class="note-box">🍇 <strong>Grape season (Dec–Apr):</strong> Add Thai An vineyard. Off-season → Bau Truc pottery instead.</div><div class="rl">Route</div><div class="route">Lodge → Goat Farm → Bimong Po Rome → Phuoc Khang → Stone Park → Kayak → Lodge</div></div></div>
+        <div class="da" style="margin-top:8px;"><div class="da-hd" onclick="toggleDa(this)"><span class="da-title">Day 3: Phuoc Binh NP Day Trip (~70km)</span><span class="da-arr">▾</span></div><div class="da-body"><p class="day-desc">Depart 7:30am. Road climbs from sea level to 1,200m in 1.5h — temperature drops 10°C entering the canopy. Local Raglai park guide joins inside.</p><div class="rl">Route</div><div class="route">Lodge → VQG Phuoc Binh → Chapor Waterfall → Gia Nhong river → Raglai village (cơm lam + black pork) → Return by 2:30pm</div><div class="chips"><span class="chip ch-nat">🌊 Chapor Waterfall</span><span class="chip ch-cul">🏘 Raglai Village</span><span class="chip ch-food">🍚 Cơm lam + black pork</span></div></div></div>
+      </div>
+    </div>
+    <div class="sa" id="sa-3-det"><div class="sa-hd" onclick="toggleSa('sa-3-det')"><h3>Details of 3N2Đ</h3><span class="sa-ico">▾</span></div>
+      <div class="sa-body"><div class="dt-grid"><div class="dt-cell"><div class="dt-label">Duration</div><div class="dt-val">3 nights / 3 days</div></div><div class="dt-cell"><div class="dt-label">Distance</div><div class="dt-val">~230km total</div></div><div class="dt-cell"><div class="dt-label">Difficulty</div><div class="dt-val">2/5 — easy trek D3</div></div><div class="dt-cell"><div class="dt-label">Group</div><div class="dt-val">Max 6 people</div></div></div>
+      <div class="ie-grid"><div class="ie-box"><div class="ie-ttl g">✓ Included</div><div class="ie-row"><span>🏍</span><span>Guide + park guide D3</span></div><div class="ie-row"><span>🏠</span><span>2 nights lodge</span></div><div class="ie-row"><span>🍽</span><span>All meals</span></div><div class="ie-row"><span>🎟</span><span>All tickets incl. VQG</span></div></div><div class="ie-box"><div class="ie-ttl r">✗ Not included</div><div class="ie-row"><span>🚌</span><span>Transport HCMC ↔ Phan Rang</span></div><div class="ie-row"><span>🍺</span><span>Alcoholic drinks</span></div><div class="ie-row"><span>🛡</span><span>Travel insurance</span></div></div></div></div>
+    </div>
+    <div class="sa" id="sa-3-faq"><div class="sa-hd" onclick="toggleSa('sa-3-faq')"><h3>FAQ</h3><span class="sa-ico">▾</span></div><div class="sa-body"><div id="faq-3n2d"></div></div></div>
+    <div class="book-strip"><h3>Reserve — Free, no deposit</h3><p>Pay cash on Day 1. Confirm in 24h.</p><button class="btn-full" onclick="goPage('book')">Book This Tour →</button></div>
+  </div>
+</div>
+
+<div class="pg" id="pg-tour-4n3d">
+  <div class="td-hero"><div class="td-hero-bg-ph" style="background:linear-gradient(145deg,#1A3028,#3D1E08,#2A1505);"></div><div class="td-hero-veil"></div><div class="td-hero-txt"><h1>4N3Đ — Phuoc Binh Wild Loop</h1></div></div>
+  <div class="price-bar"><div><div class="pb-price">$120 <span style="font-size:14px;font-weight:400;color:var(--muted);">/person</span></div><div class="pb-note">Self riding · ~270km · Max 6</div></div><button class="pb-btn" onclick="goPage('book')">Book Now</button></div>
+  <div class="td-body">
+    <div class="sa open" id="sa-4-land"><div class="sa-hd" onclick="toggleSa('sa-4-land')"><h3>Landscape</h3><span class="sa-ico">▾</span></div>
+      <div class="sa-body">
+        <div class="da open"><div class="da-hd" onclick="toggleDa(this)"><span class="da-title">Day 1: Coastal North + Mui Dinh (~80km)</span><span class="da-arr">▾</span></div><div class="da-body"><p class="day-desc">Same as all packages — coast north, Dong Hai, Bai Thung, Mui Dinh lighthouse, Son Hai, salt fields.</p><div class="rl">Route</div><div class="route">Lodge → Dong Hai → Bai Thung → Mui Dinh → Son Hai → Salt Fields → Lodge</div></div></div>
+        <div class="da" style="margin-top:8px;"><div class="da-hd" onclick="toggleDa(this)"><span class="da-title">Day 2: Farm + Inland (~80km)</span><span class="da-arr">▾</span></div><div class="da-body"><p class="day-desc">Same as all packages — goat farm, Cham tower, spring, Stone Park, lagoon kayak.</p><div class="rl">Route</div><div class="route">Lodge → Goat Farm → Bimong Po Rome → Phuoc Khang → Stone Park → Kayak → Lodge</div></div></div>
+        <div class="da" style="margin-top:8px;"><div class="da-hd" onclick="toggleDa(this)"><span class="da-title">Day 3: Deep into Phuoc Binh + Overnight (~70km)</span><span class="da-arr">▾</span></div><div class="da-body"><p class="day-desc">Depart 7:30am. Unlike the day trip version, today you stay overnight inside the park at a Raglai stilt house (100k/person). No phone signal 18–24h. Dinner: cơm lam + black pork + jungle banana wine around the fire.</p><div class="rl">Route</div><div class="route">Lodge → VQG Phuoc Binh → Chapor Waterfall → Gia Nhong river → Raglai village → Overnight stilt house</div><div class="chips"><span class="chip ch-nat">🌊 Chapor Waterfall</span><span class="chip ch-cul">🏘 Raglai Village</span><span class="chip ch-wild">🏕 Stilt House Overnight</span><span class="chip ch-food">🍖 Black pork + jungle wine</span></div></div></div>
+        <div class="da" style="margin-top:8px;"><div class="da-hd" onclick="toggleDa(this)"><span class="da-title">Day 4: Cloud Hunt + Wild Gaur (~40km + depart)</span><span class="da-arr">▾</span></div><div class="da-body"><p class="day-desc">5:30am — wake to mist and jungle sounds. Head out quietly to the wild gaur sanctuary — largest herd in Vietnam. Back to village for breakfast, then ChuRu village. Depart 11am, base by 1pm — time for afternoon bus back to HCMC.</p><div class="note-box">⚠️ No phone signal D3 night → D4 morning (18–24h). Someone at base monitors your messages.</div><div class="rl">Route</div><div class="route">Stilt house → Wild gaur sanctuary (5:30am) → Breakfast → ChuRu village → Depart 11:00 → Lodge by 13:00</div><div class="chips"><span class="chip ch-nat">☁️ 5:30am cloud hunt</span><span class="chip ch-wild">🦬 Wild gaur herd</span><span class="chip ch-cul">🏘 ChuRu Village</span></div></div></div>
+      </div>
+    </div>
+    <div class="sa" id="sa-4-det"><div class="sa-hd" onclick="toggleSa('sa-4-det')"><h3>Details of 4N3Đ</h3><span class="sa-ico">▾</span></div>
+      <div class="sa-body"><div class="dt-grid"><div class="dt-cell"><div class="dt-label">Duration</div><div class="dt-val">4 nights / 4 days</div></div><div class="dt-cell"><div class="dt-label">Distance</div><div class="dt-val">~270km total</div></div><div class="dt-cell"><div class="dt-label">Difficulty</div><div class="dt-val">2/5 — overnight jungle</div></div><div class="dt-cell"><div class="dt-label">Signal</div><div class="dt-val">None D3 night (18–24h)</div></div></div>
+      <div class="ie-grid"><div class="ie-box"><div class="ie-ttl g">✓ Included</div><div class="ie-row"><span>🏍</span><span>Guide + park guide D3–D4</span></div><div class="ie-row"><span>🏠</span><span>2 lodge + 1 Raglai stilt house</span></div><div class="ie-row"><span>🍽</span><span>All meals</span></div><div class="ie-row"><span>🍌</span><span>Jungle banana wine</span></div><div class="ie-row"><span>🎟</span><span>All tickets</span></div></div><div class="ie-box"><div class="ie-ttl r">✗ Not included</div><div class="ie-row"><span>🚌</span><span>Transport HCMC ↔ Phan Rang</span></div><div class="ie-row"><span>🍺</span><span>Extra drinks</span></div><div class="ie-row"><span>🛡</span><span>Travel insurance</span></div></div></div></div>
+    </div>
+    <div class="sa" id="sa-4-faq"><div class="sa-hd" onclick="toggleSa('sa-4-faq')"><h3>FAQ</h3><span class="sa-ico">▾</span></div><div class="sa-body"><div id="faq-4n3d"></div></div></div>
+    <div class="book-strip"><h3>Reserve — Free, no deposit</h3><p>Pay cash on Day 1. Confirm in 24h.</p><button class="btn-full" onclick="goPage('book')">Book This Tour →</button></div>
+  </div>
+</div>
+
+<!-- ══════════ BLOG ══════════ -->
+<div class="pg" id="pg-blog">
+  <div id="blog-list">
+    <div class="blog-pg">
+      <h1>All Blogs</h1>
+      <p class="sub">Travel guides, local stories & everything before you ride Ninh Thuan.</p>
+      <div class="blog-grid">
+        <div class="bc reveal" onclick="openPost('p1')"><div class="bc-img"></div><div class="bc-body"><div class="bc-cat">Travel Guide</div><div class="bc-title">How to Get from HCMC to Ninh Thuan</div><div class="bc-exc">Sleeper bus, train or private car? All options so you arrive rested and ready to ride.</div><div class="bc-meta">2026 · 4 min</div><div class="bc-read">Read more →</div></div></div>
+        <div class="bc reveal" onclick="openPost('p2')"><div class="bc-img"></div><div class="bc-body"><div class="bc-cat">Local Story</div><div class="bc-title">Why Ninh Thuan Goat Is Different From Every Other Goat in Vietnam</div><div class="bc-exc">Salt air, dry scrubland, generations of the same family. The full story behind Huynh De.</div><div class="bc-meta">2026 · 6 min</div><div class="bc-read">Read more →</div></div></div>
+        <div class="bc reveal" onclick="openPost('p3')"><div class="bc-img"></div><div class="bc-body"><div class="bc-cat">Gear & Tips</div><div class="bc-title">What to Pack for a Ninh Thuan Motorbike Tour</div><div class="bc-exc">The exact packing list we send every guest 2 days before arrival.</div><div class="bc-meta">2026 · 3 min</div><div class="bc-read">Read more →</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div id="p1" class="post-view"><div class="post-back" onclick="closePosts()">← All Blogs</div><div class="post-img"><div class="post-img-ph"></div></div><div class="post-content"><div class="post-meta"><span>Travel Guide</span><span>·</span><span>2026</span><span>·</span><span>4 min</span></div><h1 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:900;margin-bottom:16px;">How to Get from HCMC to Ninh Thuan</h1><div class="post-body"><p>✏️ Write your content here.</p><h2>Option 1: Sleeper Bus</h2><p>Departs Mien Dong bus station ~9–10pm, arrives Phan Rang 3–5am. 250–350k standard, 400–550k limousine.</p></div></div></div>
+  <div id="p2" class="post-view"><div class="post-back" onclick="closePosts()">← All Blogs</div><div class="post-img"><div class="post-img-ph"></div></div><div class="post-content"><div class="post-meta"><span>Local Story</span><span>·</span><span>2026</span></div><h1 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:900;margin-bottom:16px;">Why Ninh Thuan Goat Is Different</h1><div class="post-body"><p>✏️ Write your story here about the goat farm and Huynh De.</p></div></div></div>
+  <div id="p3" class="post-view"><div class="post-back" onclick="closePosts()">← All Blogs</div><div class="post-img"><div class="post-img-ph"></div></div><div class="post-content"><div class="post-meta"><span>Gear & Tips</span><span>·</span><span>2026</span></div><h1 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:900;margin-bottom:16px;">What to Pack</h1><div class="post-body"><p>✏️ Write your packing list here.</p></div></div></div>
+</div>
+
+<!-- ══════════ ABOUT ══════════ -->
+<div class="pg" id="pg-about">
+  <div class="about-pg">
+    <div class="ab-hero"><div class="ab-hero-ph"></div><div class="ab-veil"></div><div class="ab-txt"><h1>Where Wind & Sun Live</h1><p>Ride with people who call this land home.</p></div></div>
+    <div class="ab-content">
+      <div class="ab-sec">
+        <div class="lbl">Our Mission</div>
+        <h2>From a Stubborn Land<br>to a Global Journey</h2>
+        <p>Most people avoid Ninh Thuan. Too hot. Too dry. But behind the scorched landscape, there are people who have built entire lives here — goat farmers, Raglai families, salt harvesters. If you want to experience Vietnam the way locals do, this is where it happens.</p>
+        <p>85 Tanning Loop connects these dots — and takes you along for the ride.</p>
+      </div>
+      <div class="ab-sep"></div>
+      <div class="ab-sec">
+        <div class="lbl">The People</div>
+        <h2>Not drivers. Locals.</h2>
+        <div class="ppl-grid">
+          <div class="ppl-c"><div class="ico">🧑‍🌾</div><h4>The Goat Farmer</h4><p>Wakes at 4am. Source of Huynh De hotpot.</p></div>
+          <div class="ppl-c"><div class="ico">🏘</div><h4>Raglai Family</h4><p>Their stilt house is your bedroom for one night.</p></div>
+          <div class="ppl-c"><div class="ico">🧂</div><h4>Salt Harvester</h4><p>Reads sunrise to know the harvest.</p></div>
+          <div class="ppl-c"><div class="ico">🏍</div><h4>Your Guide</h4><p>Born here. Speaks English. Knows the backroads.</p></div>
+        </div>
+      </div>
+      <div class="ab-sep"></div>
+      <div class="ab-sec">
+        <div class="lbl">Values</div>
+        <h2>What we stand for</h2>
+        <div class="val-grid">
+          <div class="val-c"><div class="ico">🐐</div><h4>Farm-to-table is not a phrase</h4><p>The goats you visit supply Huynh De hotpot in HCMC. Real traceability.</p></div>
+          <div class="val-c"><div class="ico">🌿</div><h4>Small groups, real access</h4><p>Max 6. The stilt house has limits. Wild gaur vanish with 20 people.</p></div>
+          <div class="val-c"><div class="ico">💰</div><h4>Local money stays local</h4><p>Guides, lodges, food — all from Ninh Thuan.</p></div>
+          <div class="val-c"><div class="ico">🦬</div><h4>No signal, no crowds</h4><p>Vietnam's largest wild gaur herd. 5:30am. Just you and the jungle.</p></div>
+        </div>
+      </div>
+      <div class="ab-sep"></div>
+      <div class="ab-sec">
+        <div class="lbl">FAQ</div>
+        <h2>Common questions</h2>
+        <div id="main-faq"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ BOOKING ══════════ -->
+<div class="pg" id="pg-book">
+  <div class="book-pg">
+    <div class="bk-hero">
+      <h1>Book now.<br>Pay on arrival.</h1>
+      <p>No deposit. No card needed. We confirm in 24h via WhatsApp / Zalo.</p>
+      <div class="flow">
+        <div class="fl"><div class="fl-n">1</div><div class="fl-t"><strong>Fill the form</strong> — 2 min</div></div>
+        <div class="fl"><div class="fl-n">2</div><div class="fl-t"><strong>We confirm</strong> via WhatsApp/Zalo within 24h</div></div>
+        <div class="fl"><div class="fl-n">3</div><div class="fl-t"><strong>Pre-tour info</strong> sent 2 days before</div></div>
+        <div class="fl"><div class="fl-n">4</div><div class="fl-t"><strong>Pay cash on Day 1</strong> at lodge Tan An. VND only.</div></div>
+      </div>
+    </div>
+    <div class="bk-form-wrap">
+      <div class="fcard">
+        <h2>Book a Tour</h2>
+        <div class="sub">Free to reserve · Pay on arrival</div>
+        <form id="bookForm" onsubmit="submitBook(event)">
+          <div class="frow-2">
+            <div class="frow"><label>Full Name *</label><input type="text" required placeholder="Your name"></div>
+            <div class="frow"><label>Nationality</label><input type="text" placeholder="e.g. Australian"></div>
+          </div>
+          <div class="frow"><label>WhatsApp / Zalo *</label><input type="tel" required placeholder="+84 813 174 374"></div>
+          <div class="frow"><label>Email</label><input type="email" placeholder="phanrangthetanningloop@gmail.com"></div>
+          <div class="frow-2">
+            <div class="frow"><label>Tour *</label><select required><option value="">Select</option><option>2N1Đ — Coast & Farm ($65+)</option><option>3N2Đ — Loop + Jungle ($95+)</option><option>4N3Đ — Phuoc Binh Wild ($120+)</option></select></div>
+            <div class="frow"><label>People *</label><select required><option value="">Select</option><option>1 (solo)</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
+          </div>
+          <div class="frow-2">
+            <div class="frow"><label>Start Date *</label><input type="date" required></div>
+            <div class="frow"><label>Riding</label><select><option>Self Riding</option><option>Easy Rider (+800–1.000k)</option><option>Ride Behind Friend (−300–500k)</option></select></div>
+          </div>
+          <div class="frow"><label>Room</label><select><option>Shared Lodge (standard)</option><option>Private Room (+200k/night)</option></select></div>
+          <div class="frow"><label>Questions / Special requests</label><textarea placeholder="Dietary needs, pickup from Phan Rang, anything else..."></textarea></div>
+          <button type="submit" class="fsub">Reserve My Spot →</button>
+        </form>
+        <div class="fok" id="formOk"><div class="ico">✅</div><h3>Booking received!</h3><p>We'll confirm via <strong>WhatsApp/Zalo within 24h</strong>. Pre-tour info sent 2 days before. Pay cash on Day 1.</p></div>
+        <p class="fnote">📍 Tan An, Ninh Hai, Ninh Thuan<br>💬 0813 174 374 · 📧 phanrangthetanningloop@gmail.com</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ LEGAL PAGES ══ -->
+<div class="pg" id="pg-privacy"><div class="legal-pg"><h1>Privacy Policy</h1><h2>1. Information We Collect</h2><p>Full name, email, phone/WhatsApp/Zalo, nationality, tour details including dates, group size, riding option, and room preference.</p><h2>2. How We Use Your Information</h2><p>To process and confirm bookings, communicate about reservations, send pre-tour information, and improve our services. We do not sell or share your data for marketing purposes.</p><h2>3. Data Protection</h2><p>Access to personal information is restricted to authorized 85 Tanning Loop staff only. We implement appropriate measures to protect your data from unauthorized access.</p><h2>4. Sharing of Information</h2><p>We may share limited information with trusted local partners (Phuoc Binh NP guides, local accommodation) solely to deliver our tour services.</p><h2>5. Contact</h2><p>📧 phanrangthetanningloop@gmail.com · 💬 0813 174 374</p><button class="btn-full" style="max-width:200px;margin-top:20px;" onclick="goPage('home')">← Back to Home</button></div></div>
+
+<div class="pg" id="pg-refund"><div class="legal-pg"><h1>Payment, Cancellation & Refund Policy</h1><h2>1. Payment</h2><p>Payment is collected in cash on Day 1 at lodge Tan An. No deposit required. VND only. ATM available in Phan Rang (~25km).</p><h2>2. Free Cancellation</h2><p>Since no deposit is required, reservations can be cancelled free at any time with at least 24 hours notice before Day 1 via WhatsApp/Zalo.</p><h2>3. No-Refund After Payment</h2><p>Once payment is made on Day 1, no refunds for personal cancellations. Force majeure cases reviewed individually.</p><h2>4. Date Changes</h2><p>Reschedule free with at least 48 hours notice, subject to availability.</p><h2>5. No-Show</h2><p>If you fail to arrive Day 1 without notice, the tour is cancelled with no further obligation.</p><h2>6. Weather & Safety</h2><p>We may modify itineraries for safety reasons, particularly Phuoc Binh routes. No refund for partial changes made for safety; we offer an alternative activity of equal value.</p><button class="btn-full" style="max-width:200px;margin-top:20px;" onclick="goPage('home')">← Back to Home</button></div></div>
+
+<div class="pg" id="pg-terms"><div class="legal-pg"><h1>Terms & Conditions</h1><h2>1. Booking & Payment</h2><p>Reservations are free. Confirmed via WhatsApp/Zalo within 24h. Payment in cash Day 1 at lodge Tan An.</p><h2>2. Driving Requirements</h2><p>To self-ride, guests must hold a valid International Driving Permit (IDP) covering motorbikes. No IDP = Easy Rider option required. 85 Tanning Loop is not responsible for fines from riding without valid documentation.</p><h2>3. Health & Safety</h2><p>Guests must be physically fit to participate. Helmets provided and must be worn. Follow all guide instructions. 85 Tanning Loop is not liable for injuries caused by guest negligence.</p><h2>4. Personal Belongings</h2><p>Guests are responsible for personal items. We are not liable for loss or damage. Pack light — motorbike storage is limited.</p><h2>5. Photography</h2><p>By joining our tours, guests agree photos/videos may be used for 85 Tanning Loop's marketing (@85tanningloop). Inform us before the tour if you prefer not to appear.</p><h2>6. Governing Law</h2><p>These terms are governed by the laws of Vietnam.</p><h2>7. Contact</h2><p>📧 phanrangthetanningloop@gmail.com · 💬 0813 174 374 · 📱 @85tanningloop</p><button class="btn-full" style="max-width:200px;margin-top:20px;" onclick="goPage('home')">← Back to Home</button></div></div>
+
+<!-- WhatsApp FAB -->
+<a class="wa-fab" href="https://wa.me/84813174374" target="_blank">💬</a>
+
+<script>
+/* ══ FAQ DATA ══ */
+var FAQS=[
+  {q:'Do I need a motorbike license?',a:'To self-ride you need a valid International Driving Permit (IDP) covering motorbikes. No IDP? Choose Easy Rider (guide rides, you sit behind) or Ride Behind Friend (discount applies).'},
+  {q:'How do I get from HCMC to Ninh Thuan?',a:'Sleeper bus HCMC → Phan Rang: 5–6h, ~250–350k standard / 400–550k limousine. We can help book. Also offer pick-up from Phan Rang station (+100k/person).'},
+  {q:'How do I pay?',a:'Cash on Day 1 when you arrive at lodge Tan An. No deposit needed to hold your spot. ATM in Phan Rang city if needed.'},
+  {q:'Best time to visit?',a:'Ninh Thuan has 300+ sunny days/year. Best: December–August. Some rain Sep–Nov. Grape season at Thai An vineyard: December–April only.'},
+  {q:'Is the Phuoc Binh trek difficult?',a:'Difficulty 2/5 — accessible for first-timers. Wear closed-toe shoes. Forest trails to waterfalls and rivers, not steep mountaineering.'},
+  {q:'Is there phone signal in Phuoc Binh?',a:'No signal in deep forest (18–24h for 4N3Đ only). We assign someone at base to monitor your messages. Consider it a digital detox.'},
+  {q:'What is the group size?',a:'Maximum 6 people. Solo travellers welcome — supplement of +500k applies since some costs cannot split further.'},
+  {q:'Do you have vegetarian options?',a:'Yes — let us know dietary requirements when booking and we coordinate meals accordingly.'},
+  {q:'Can I change to Easy Rider during the tour?',a:'Possible depending on guide availability. Let us know as early as possible.'}
+];
+
+function buildFaq(id){
+  var el=document.getElementById(id);
+  if(!el||el._built)return;
+  el._built=true;
+  FAQS.forEach(function(f,i){
+    var uid=id+'_'+i;
+    el.insertAdjacentHTML('beforeend',
+      '<div class="faq-item"><button class="faq-q" onclick="toggleFaq(\''+uid+'\'">'+f.q+'<span class="faq-ic">+</span></button>'+
+      '<div class="faq-a" id="'+uid+'">'+f.a+'</div></div>'
+    );
+  });
+}
+function toggleFaq(id){
+  var el=document.getElementById(id);
+  var item=el.parentElement;
+  item.classList.toggle('open');
+}
+
+/* ══ PAGE NAV ══ */
+var history_stack=[];
+var cur='home';
+var MAIN=['home','tours','blog','about','book'];
+
+function goPage(name){
+  history_stack.push(cur);
+  _show(name);
+}
+function goTour(slug){
+  history_stack.push(cur);
+  _show('tour-'+slug);
+  // Build FAQ for this tour
+  buildFaq('faq-'+slug.replace('-',''));
+}
+function _show(name){
+  cur=name;
+  document.querySelectorAll('.pg').forEach(function(p){p.className='pg';});
+  var pg=document.getElementById('pg-'+name);
+  if(pg)pg.className='pg on';
+  // Nav highlights
+  MAIN.forEach(function(m){
+    var el=document.getElementById('nl-'+m);
+    if(el)el.className=m===name?'nl on':'nl';
+  });
+  if(name==='about')buildFaq('main-faq');
+  if(name!=='blog')closePosts();
+  window.scrollTo({top:0,behavior:'instant'});
+  setTimeout(revealAll,80);
+  // Stop YT when not on home
+  if(name!=='home'){
+    var yt=document.getElementById('ytPlayer');
+    if(yt)yt.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*');
+  } else {
+    var yt=document.getElementById('ytPlayer');
+    if(yt)yt.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}','*');
+  }
+}
+
+/* ══ YT STOP AT 34s ══ */
+var ytReady=false;
+window.addEventListener('message',function(e){
+  try{
+    var d=JSON.parse(e.data);
+    if(d.event==='onStateChange'&&d.info===1){
+      // playing — check every second
+      if(!window._ytTimer){
+        window._ytTimer=setInterval(function(){
+          var yt=document.getElementById('ytPlayer');
+          if(!yt)return;
+          yt.contentWindow.postMessage('{"event":"listening","id":1,"channel":"widget"}','*');
+        },500);
+      }
+    }
+    if(d.event==='infoDelivery'&&d.info&&d.info.currentTime){
+      if(d.info.currentTime>=34){
+        var yt=document.getElementById('ytPlayer');
+        if(yt)yt.contentWindow.postMessage('{"event":"command","func":"seekTo","args":[0,true]}','*');
+      }
+    }
+  }catch(err){}
+});
+
+/* ══ SECTION ACCORDION ══ */
+function toggleSa(id){document.getElementById(id).classList.toggle('open');}
+
+/* ══ DAY ACCORDION ══ */
+function toggleDa(hd){
+  var da=hd.parentElement;
+  var wasOpen=da.classList.contains('open');
+  da.parentElement.querySelectorAll('.da').forEach(function(d){d.classList.remove('open');});
+  if(!wasOpen)da.classList.add('open');
+}
+
+/* ══ BLOG ══ */
+function openPost(id){
+  document.getElementById('blog-list').style.display='none';
+  document.querySelectorAll('.post-view').forEach(function(p){p.className='post-view';});
+  var post=document.getElementById(id);
+  if(post)post.className='post-view on';
+  window.scrollTo({top:0,behavior:'instant'});
+}
+function closePosts(){
+  var bl=document.getElementById('blog-list');
+  if(bl)bl.style.display='block';
+  document.querySelectorAll('.post-view').forEach(function(p){p.className='post-view';});
+}
+
+/* ══ BOOK ══ */
+function submitBook(e){
+  e.preventDefault();
+  document.getElementById('bookForm').style.display='none';
+  document.getElementById('formOk').style.display='block';
+}
+
+/* ══ SCROLL REVEAL ══ */
+function revealAll(){
+  if(!('IntersectionObserver' in window))return;
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}});
+  },{threshold:.07});
+  document.querySelectorAll('.reveal:not(.vis)').forEach(function(el){io.observe(el);});
+}
+revealAll();
+</script>
+</body>
+</html>
